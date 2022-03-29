@@ -30,13 +30,13 @@ public class CasaService {
     }
 
     public Casa criarAtualizarCasa(Casa entidade) {
-        if(entidade.getId() == null) {
+        if(entidade.getIdCasa() == null) {
             entidade = repositorio.save(entidade);
 
             return entidade;
         }
         else {
-            Optional<Casa> casa = repositorio.findById(entidade.getId());
+            Optional<Casa> casa = repositorio.findById(entidade.getIdCasa());
 
             if(casa.isPresent()) {
                 Casa novaEntidade = casa.get();

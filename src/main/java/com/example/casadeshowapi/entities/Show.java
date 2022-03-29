@@ -39,8 +39,10 @@ public class Show implements Serializable{
     @Column(nullable = false, length = 2000)
     private String local;
 
-
     private int ingRestante;
+
+    private int compra;
+
     @ManyToOne
     @JoinColumn(name="casa_id")
     private Casa casa;
@@ -101,7 +103,11 @@ public class Show implements Serializable{
         this.casa = casa;
     }
 
+    public int getCompra() {
+        return compra;
+    }
 
-
-
+    public void setCompra(int compra) {
+        this.compra = compra;
+    }
 }

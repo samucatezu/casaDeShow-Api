@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+
 @Controller
 public class ShowController {
 
@@ -78,9 +79,9 @@ public class ShowController {
     public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
         if (id.isPresent()) {
             Show entity = service.acharPorId(id.get());
-            model.addAttribute("show", entity);
+            model.addAttribute("shows", entity);
         } else {
-            model.addAttribute("show", new Show());
+            model.addAttribute("shows", new Show());
         }
         return "addshow";
     }
@@ -88,6 +89,35 @@ public class ShowController {
     @RequestMapping(path = "/delete/{id}")
     public String deleteShowById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         service.apagarShow(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = {"/comprar", "/comprarteste/{id}"})
+    public String comprar(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+        if (id.isPresent()) {
+            Show entity = service.acharPorId(id.get());
+            entity.setIngRestante(entity.getIngRestante() - entity.getCompra());
+            model.addAttribute("shows", entity);
+        } else {
+            model.addAttribute("shows", new Show());
+        }
+
+        return "comprar";
+    }
+
+    @PostMapping("/comprar")
+    public String comprar(Long id, int compra ) {
+
+        ModelAndView mv = new ModelAndView("/shows");
+
+        Show show = repositorio.findById(id).get();
+
+        show.setIngRestante(show.getIngRestante() - compra);
+        System.out.println(show.getIngRestante());
+
+        repositorio.save(show);
+
+
         return "redirect:/";
     }
 

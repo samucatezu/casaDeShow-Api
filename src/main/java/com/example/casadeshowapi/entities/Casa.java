@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -17,7 +18,7 @@ public class Casa implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idCasa;
 
     @Column(nullable = false, length = 50)
     private String nome;
@@ -25,15 +26,15 @@ public class Casa implements Serializable{
     @Column(nullable = false, length = 50)
     private String endereco;
 
-    @OneToMany(mappedBy="casa")
+    @OneToMany(mappedBy="casa", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Show> show;
 
-    public Long getId() {
-        return id;
+    public Long getIdCasa() {
+        return idCasa;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdCasa(Long idCasa) {
+        this.idCasa = idCasa;
     }
 
     public String getNome() {

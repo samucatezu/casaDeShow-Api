@@ -59,8 +59,8 @@ public class CasaController {
         return findAll();
     }
 
-    @RequestMapping(path = {"/editcasa", "/editcasa/{id}"})
-    public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    @RequestMapping(path = {"/editcasa", "/editcasa/{idCasa}"})
+    public String editarPorId(Model model, @PathVariable("idCasa") Optional<Long> id) throws RecordNotFoundException {
         if (id.isPresent()) {
             Casa entity = service.acharPorId(id.get());
             model.addAttribute("casa", entity);
@@ -70,8 +70,8 @@ public class CasaController {
         return "addcasa";
     }
 
-    @RequestMapping(path = "/deletecasa/{id}")
-    public String deleteEmployeeById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    @RequestMapping(path = "/deletecasa/{idCasa}")
+    public String deleteEmployeeById(Model model, @PathVariable("idCasa") Long id) throws RecordNotFoundException {
         service.apagarCasa(id);
         return "redirect:/casa";
     }
