@@ -1,12 +1,12 @@
 package com.example.casadeshowapi.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.repository.ShowRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +54,9 @@ public class ShowService {
                 newEntity.setLocal(entity.getLocal());
                 newEntity.setData(entity.getData());
                 newEntity.setValor(entity.getValor());
+                newEntity.setCasa(entity.getCasa());
                 newEntity.setIngRestante(entity.getIngRestante());
+                newEntity.setCasa(entity.getCasa());
 
                 newEntity = repository.save(newEntity);
 
