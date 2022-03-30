@@ -57,6 +57,7 @@ public class ShowService {
                 newEntity.setCasa(entity.getCasa());
                 newEntity.setIngRestante(entity.getIngRestante());
                 newEntity.setCasa(entity.getCasa());
+                newEntity.setEstilo(entity.getEstilo());
 
                 newEntity = repository.save(newEntity);
 

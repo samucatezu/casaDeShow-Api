@@ -43,6 +43,7 @@ public class CasaController {
 
         ModelAndView mv = new ModelAndView("/addcasa");
         mv.addObject("casa", casa);
+        mv.addObject("listar", service.findAll());
 
         return mv;
     }
@@ -71,7 +72,7 @@ public class CasaController {
     }
 
     @RequestMapping(path = "/deletecasa/{idCasa}")
-    public String deleteEmployeeById(Model model, @PathVariable("idCasa") Long id) throws RecordNotFoundException {
+    public String deleteCasaById(Model model, @PathVariable("idCasa") Long id) throws RecordNotFoundException {
         service.apagarCasa(id);
         return "redirect:/casa";
     }
