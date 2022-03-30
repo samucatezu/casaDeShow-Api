@@ -16,6 +16,7 @@ import com.example.casadeshowapi.services.ShowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +28,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 @Controller
 public class ShowController {
 
@@ -39,10 +38,8 @@ public class ShowController {
     private CasaService home;
 
     @Autowired
-    private IngressoService ingressos;
-
-    @Autowired
     private ShowRepository repositorio;
+
 
     @GetMapping("/")
     public ModelAndView findAll() {
@@ -53,15 +50,16 @@ public class ShowController {
         return mv;
     }
 
+
     @GetMapping("/adicionar")
     @PreAuthorize("hasRole('GERENTE')")
+    @Secured("ROLE_GERENTE")
     public ModelAndView addShow(Show show, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("/addshow");
         if(result.hasErrors()) {
-            mv.addObject(result);
+            mv.addObject(result.getAllErrors());
         }else {
-            System.out.println("Deu merda aqui");
         }
         mv.addObject("shows", show);
         mv.addObject("listar", service.findAll());
@@ -75,15 +73,16 @@ public class ShowController {
         return home.findAll();
     }
 
+
     @PostMapping("/saveshow")
     @PreAuthorize("hasRole('GERENTE')")
+    @Secured("ROLE_GERENTE")
     public ModelAndView saveShow(@Valid Show shows, BindingResult result, Casa casa) {
 
         if (result.hasErrors()) {
             return addShow(shows, result);
         }
 
-        System.out.println(casa.getNome());
         repositorio.save(shows);
 
         return findAll();
@@ -125,7 +124,7 @@ public class ShowController {
 
 
     @PostMapping("/comprar")
-    public String comprar(Long id, int compra, Ingressos ingressos) {
+    public String comprar(Long id, int compra) {
 
         Show show = repositorio.findById(id).get();
 

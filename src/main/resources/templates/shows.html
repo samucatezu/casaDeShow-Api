@@ -1,53 +1,70 @@
+<link ref="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="icon" href="glyphicon glyphicon-film">
+<link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/carousel/">
+<link href="/bootstrap.css" rel="stylesheet">
+<link href="/carousel.css" rel="stylesheet">
+
+<!------ Include the above in your HEAD tag ---------->
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Posts</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script
+            src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventus!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>Shows</strong>
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive">
-            <table class="table table-sm table-striped table-hover table-bordered">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Show</th>
-                    <th>Preço</th>
-                    <th>Data</th>
-                    <th>Local</th>
-                    <th>Qtd. restante de ingressos</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="mostra : ${shows}">
-                    <td th:text="${mostra.id}"></td>
-                    <td th:text="${mostra.shows}"></td>
-                    <td th:text="${mostra.valor}"></td>
-                    <td th:text="${#dates.format(mostra, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${mostra.local}"></td>
-                    <td>
-                        <div class="btn-group pull-right">
-                            <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${mostra.id})}" >Editar</a>
-                            <a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${mostra.id})}">Excluir</a>
+<div class="wrapper">
+    <header>
+        <nav style="z-index: 200;">
+            <div class="menu-icon">
+                <i class="fa fa-bars fa-2x"></i>
+            </div>
+            <div class="logo">Eventus</div>
+            <div class="menu">
+                <ul>
+                    <li class="active"><a th:href="@{/}">Inicio</a></li>
+                    <li><a th:href="@{/adicionar/}" sec:authorize="hasRole('GERENTE')">Adicionar Show</a></li>
+                    <li><a th:href="@{/adicionarcasa/}" sec:authorize="hasRole('GERENTE')">Adicionar Casa</a></li>
+                    <li><a href="/login?logout">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container marketing">
+        <div class="content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Eventos.</strong>
+                </div>
+                <div class="row">
+                    <tr th:each="mostra : ${shows}">
+                        <div class="col-lg-4" style="margin-top: 10px;">
+                            <img th:if="${mostra.estilo == 'rock'}" class="img-circle" src="bg.jpg" alt="Generic placeholder image" width="140" height="140">
+                            <img th:if="${mostra.estilo == 'pagode'}" class="img-circle" src="pagode.jpg" alt="Generic placeholder image" width="140" height="140">
+                            <img th:if="${mostra.estilo == 'axé'}" class="img-circle" src="axé.png" alt="Generic placeholder image" width="140" height="140">
+                            <img th:if="${mostra.estilo == 'sertanejo'}" class="img-circle" src="sertanejo.jpg" alt="Generic placeholder image" width="140" height="140">
+                            <h2 th:text="${mostra.shows}"></h2>
+                            <p th:text="${mostra.local}"></p>
+                            <p th:text="${mostra.IngRestante}"></p>
+                            <p><a class="btn btn-default" role="button" th:href="@{/comprarteste/{id}(id=${mostra.id})}">Comprar</a></p>
                         </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </tr>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="panel-footer">
-        <a class="btn btn-sm btn-success" th:href="@{/adicionar/}" >Adicionar</a>
-    </div>
 </div>
+
 </body>
 </html>

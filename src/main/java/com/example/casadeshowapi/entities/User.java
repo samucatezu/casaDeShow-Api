@@ -23,7 +23,7 @@ public class User {
     private String email;
 
     @Column(nullable = false, length = 50)
-    private int role;
+    private String role;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public class User {
         this.email = email;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

@@ -22,17 +22,8 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        String retorno = null;
-
-        if(user.getRole() == 0) {
-            retorno = "GERENTE";
-        }
-        if(user.getRole() == 1) {
-            retorno = "USUARIO";
-        }
-
-        System.out.println(retorno);
-        return Collections.singleton(new SimpleGrantedAuthority(retorno));
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
+        return Collections.singleton(authority);
     }
 
     @Override
