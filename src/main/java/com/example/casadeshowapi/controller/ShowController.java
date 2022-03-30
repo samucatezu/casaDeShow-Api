@@ -6,10 +6,12 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.example.casadeshowapi.entities.Casa;
+import com.example.casadeshowapi.entities.Ingressos;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.repository.ShowRepository;
 import com.example.casadeshowapi.services.CasaService;
+import com.example.casadeshowapi.services.IngressoService;
 import com.example.casadeshowapi.services.ShowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class ShowController {
     private CasaService home;
 
     @Autowired
+    private IngressoService ingressos;
+
+    @Autowired
     private ShowRepository repositorio;
 
     @GetMapping("/")
@@ -48,13 +53,18 @@ public class ShowController {
         return mv;
     }
 
-    @PreAuthorize("hasRole('GERENTE')")
     @GetMapping("/adicionar")
-    public ModelAndView addShow(Show show) {
+    @PreAuthorize("hasRole('GERENTE')")
+    public ModelAndView addShow(Show show, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("/addshow");
+        if(result.hasErrors()) {
+            mv.addObject(result);
+        }else {
+            System.out.println("Deu merda aqui");
+        }
         mv.addObject("shows", show);
-
+        mv.addObject("listar", service.findAll());
 
         return mv;
     }
@@ -65,12 +75,12 @@ public class ShowController {
         return home.findAll();
     }
 
-    @PreAuthorize("hasRole('GERENTE')")
     @PostMapping("/saveshow")
+    @PreAuthorize("hasRole('GERENTE')")
     public ModelAndView saveShow(@Valid Show shows, BindingResult result, Casa casa) {
 
         if (result.hasErrors()) {
-            return addShow(shows);
+            return addShow(shows, result);
         }
 
         System.out.println(casa.getNome());
@@ -79,8 +89,9 @@ public class ShowController {
         return findAll();
     }
 
-    @PreAuthorize("hasRole('GERENTE')")
+
     @RequestMapping(path = {"/edit", "/edit/{id}"})
+    @PreAuthorize("hasRole('GERENTE')")
     public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
         if (id.isPresent()) {
             Show entity = service.acharPorId(id.get());
@@ -91,8 +102,9 @@ public class ShowController {
         return "addshow";
     }
 
-    @PreAuthorize("hasRole('GERENTE')")
+
     @RequestMapping(path = "/delete/{id}")
+    @PreAuthorize("hasRole('GERENTE')")
     public String deleteShowById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         service.apagarShow(id);
         return "redirect:/";
@@ -113,7 +125,7 @@ public class ShowController {
 
 
     @PostMapping("/comprar")
-    public String comprar(Long id, int compra ) {
+    public String comprar(Long id, int compra, Ingressos ingressos) {
 
         Show show = repositorio.findById(id).get();
 
