@@ -14,13 +14,19 @@ public class User {
     private int id;
 
     @Column(nullable = false, length = 50)
-    private String usuario;
+    private String nome;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 20)
     private String senha;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 60)
     private String email;
+
+    @Column(nullable = false, length = 50)
+    private String login;
+
+    @Column(nullable = false, length = 50)
+    private boolean ativo;
 
     public int getId() {
         return id;
@@ -30,12 +36,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSenha() {
@@ -55,3 +61,4 @@ public class User {
     }
 
 }
+
