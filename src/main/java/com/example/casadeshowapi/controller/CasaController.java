@@ -39,9 +39,14 @@ public class CasaController {
 
 
     @GetMapping("/adicionarcasa")
-    public ModelAndView add(Casa casa) {
+    public ModelAndView add(Casa casa, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("/addcasa");
+
+        if(result.hasErrors()) {
+            mv.addObject(result.getAllErrors());
+        }
+
         mv.addObject("casa", casa);
         mv.addObject("listar", service.findAll());
 
@@ -52,7 +57,7 @@ public class CasaController {
     public ModelAndView salve(@Valid Casa casa, BindingResult result) {
 
         if (result.hasErrors()) {
-            return add(casa);
+            return add(casa, result);
         }
 
         service.criarAtualizarCasa(casa);

@@ -41,10 +41,11 @@
             </li>
             <li class="nav-item"><a class="nav-link" th:href="@{/casa}">Casas</a>
             </li>
-            <li class="nav-item"><a class="nav-link" sec:authorize="hasRole('GERENTE')"
-                                    th:href="@{/adicionar/}">Adicionar Show</a></li>
-            <li><a class="nav-link" th:href="@{/adicionarcasa/}" sec:authorize="hasRole('GERENTE')">Adicionar
-                Casa</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    sec:authorize="hasRole('GERENTE')" th:href="@{/adicionar/}">Adicionar
+                Show</a></li>
+            <li><a class="nav-link" th:href="@{/adicionarcasa/}"
+                   sec:authorize="hasRole('GERENTE')">Adicionar Casa</a></li>
             <li class="active"><a class="nav-link" href="./logout">Sair
                 <span class="sr-only">(current)
             </a></li>
@@ -53,8 +54,6 @@
         </span>
     </div>
 </nav>
-
-
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -101,27 +100,21 @@
                             <label>Valor:
                                 <p th:text="*{valor}"></p>
                             </label>
-
                         </div>
                     </div>
-
-
 
                     <div class="form-group row">
-                        <div th:unless="${IngRestante == 0}"  class="col-md-10"
-                             th:classappend="${#fields.hasErrors('IngRestante')}? 'has-error'">
-                            <label>Não tem ingressos</label>
+                        <div th:if="${IngRestante &lt; 1}" class="col-md-10" >
+                            <label >Ingressos esgotados.</label>
                         </div>
-                        <div class="col-md-10" th:if="${IngRestante != 0}" th:classappend="${#fields.hasErrors('IngRestante')}? 'has-error'">
-                            <label>Quantidade de ingressos para compra</label> <input name="compra" type="number"
-                                                                                      class="form-control input-sm" th:field="*{compra}"
-                                                                                      maxlength="15" placeholder="Informe a quantidade de ingressos" />
+                        <div th:if="${IngRestante &gt; 0} " class="col-md-10"
+                             th:classappend="${#fields.hasErrors('IngRestante')}? 'has-error'">
+                            <label >Quantidade de ingressos para compra.<input name="compra" type="number" class="form-control input-sm"
+                                                                               th:field="*{compra}" maxlength="15"
+                                                                               placeholder="Informe a quantidade de ingressos" /></label>
+
                         </div>
                     </div>
-
-
-
-
 
                     <div class="form-group row">
                         <div class="col-md-6"
@@ -143,7 +136,6 @@
                         <button type="submit" class="btn btn-sm btn-primary">Comprar</button>
                         <a th:href="@{/}" class="btn btn-sm btn-default">Cancelar</a>
                     </div>
-
                 </fieldset>
             </div>
         </form>

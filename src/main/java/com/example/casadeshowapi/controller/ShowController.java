@@ -6,18 +6,13 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.example.casadeshowapi.entities.Casa;
-import com.example.casadeshowapi.entities.Ingressos;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.repository.ShowRepository;
 import com.example.casadeshowapi.services.CasaService;
-import com.example.casadeshowapi.services.IngressoService;
 import com.example.casadeshowapi.services.ShowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,8 +47,6 @@ public class ShowController {
 
 
     @GetMapping("/adicionar")
-    @PreAuthorize("hasRole('GERENTE')")
-    @Secured("ROLE_GERENTE")
     public ModelAndView addShow(Show show, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("/addshow");
@@ -75,8 +68,6 @@ public class ShowController {
 
 
     @PostMapping("/saveshow")
-    @PreAuthorize("hasRole('GERENTE')")
-    @Secured("ROLE_GERENTE")
     public ModelAndView saveShow(@Valid Show shows, BindingResult result, Casa casa) {
 
         if (result.hasErrors()) {
@@ -90,7 +81,6 @@ public class ShowController {
 
 
     @RequestMapping(path = {"/edit", "/edit/{id}"})
-    @PreAuthorize("hasRole('GERENTE')")
     public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
         if (id.isPresent()) {
             Show entity = service.acharPorId(id.get());
@@ -103,7 +93,6 @@ public class ShowController {
 
 
     @RequestMapping(path = "/delete/{id}")
-    @PreAuthorize("hasRole('GERENTE')")
     public String deleteShowById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         service.apagarShow(id);
         return "redirect:/";
