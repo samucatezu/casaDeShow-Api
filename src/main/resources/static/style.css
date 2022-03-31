@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-    font-family: "Helvetica Neue",sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     font-weight: lighter;
 
     background: url(back.jpg) no-repeat 50% 50%;
@@ -71,8 +71,6 @@ nav ul li a {
 }
 
 
-
-
 .menu-icon {
     line-height: 60px;
     width: 100%;
@@ -85,7 +83,7 @@ nav ul li a {
     display: none;
 }
 
-@media(max-width: 786px) {
+@media (max-width: 786px) {
 
     .logo {
         position: fixed;

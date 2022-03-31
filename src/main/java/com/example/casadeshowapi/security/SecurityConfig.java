@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/css/**","/images/**", "/*").permitAll()
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/css/**", "/images/**", "/*").permitAll()
                 .antMatchers("/adicionar/**").hasRole("GERENTE")
                 .antMatchers("/adicionarcasa/**").hasRole("GERENTE")
                 .antMatchers("/casa/**").hasRole("GERENTE")
                 .anyRequest().authenticated()
-                .and().formLogin().defaultSuccessUrl("/",true).permitAll()
+                .and().formLogin().defaultSuccessUrl("/", true).permitAll()
                 .and().logout()
                 .and()
                 .exceptionHandling().accessDeniedPage("/acessonegado");

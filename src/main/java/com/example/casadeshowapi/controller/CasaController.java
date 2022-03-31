@@ -1,10 +1,5 @@
 package com.example.casadeshowapi.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.services.CasaService;
@@ -13,12 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.Optional;
 
 
 @Controller
@@ -43,7 +39,7 @@ public class CasaController {
 
         ModelAndView mv = new ModelAndView("/addcasa");
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             mv.addObject(result.getAllErrors());
         }
 

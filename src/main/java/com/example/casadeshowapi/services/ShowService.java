@@ -1,15 +1,13 @@
 package com.example.casadeshowapi.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.repository.ShowRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,7 +27,7 @@ public class ShowService {
     public Show acharPorId(Long id) throws RecordNotFoundException {
         Optional<Show> show = repository.findById(id);
 
-        if(show.isPresent()) {
+        if (show.isPresent()) {
             return show.get();
         } else {
             throw new RecordNotFoundException("Não existe este show");
@@ -40,15 +38,14 @@ public class ShowService {
 
     //criar / atualizar os shows
     public Show criarAtualizarShow(Show entity) {
-        if(entity.getId()  == null) {
+        if (entity.getId() == null) {
             entity = repository.save(entity);
 
             return entity;
-        }
-        else {
+        } else {
             Optional<Show> show = repository.findById(entity.getId());
 
-            if(show.isPresent()) {
+            if (show.isPresent()) {
                 Show newEntity = show.get();
                 newEntity.setShows(entity.getShows());
                 newEntity.setLocal(entity.getLocal());
@@ -75,8 +72,7 @@ public class ShowService {
     public void apagarShow(Long id) throws RecordNotFoundException {
         Optional<Show> show = repository.findById(id);
 
-        if(show.isPresent())
-        {
+        if (show.isPresent()) {
             repository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Show não encontrado!");

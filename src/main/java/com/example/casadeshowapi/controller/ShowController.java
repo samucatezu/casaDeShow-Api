@@ -1,27 +1,21 @@
 package com.example.casadeshowapi.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
 import com.example.casadeshowapi.repository.ShowRepository;
 import com.example.casadeshowapi.services.CasaService;
 import com.example.casadeshowapi.services.ShowService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ShowController {
@@ -50,9 +44,9 @@ public class ShowController {
     public ModelAndView addShow(Show show, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("/addshow");
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             mv.addObject(result.getAllErrors());
-        }else {
+        } else {
         }
         mv.addObject("shows", show);
         mv.addObject("listar", service.findAll());
@@ -60,7 +54,7 @@ public class ShowController {
         return mv;
     }
 
-    @ModelAttribute(value="casinha")
+    @ModelAttribute(value = "casinha")
     public List<Casa> buscarCasas() {
 
         return home.findAll();

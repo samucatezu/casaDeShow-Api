@@ -1,18 +1,11 @@
 package com.example.casadeshowapi.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-@Entity (name = "casa")
-public class Casa implements Serializable{
+@Entity(name = "casa")
+public class Casa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +19,7 @@ public class Casa implements Serializable{
     @Column(nullable = false, length = 50)
     private String endereco;
 
-    @OneToMany(mappedBy="casa", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "casa", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Show> show;
 
     public Long getIdCasa() {

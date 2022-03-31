@@ -1,22 +1,14 @@
 package com.example.casadeshowapi.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-@Entity (name = "shows")
-public class Show implements Serializable{
+@Entity(name = "shows")
+public class Show implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +38,7 @@ public class Show implements Serializable{
     private String estilo;
 
     @ManyToOne
-    @JoinColumn(name="casa_id")
+    @JoinColumn(name = "casa_id")
     private Casa casa;
 
     public Long getId() {
