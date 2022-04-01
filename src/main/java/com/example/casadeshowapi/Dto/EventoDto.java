@@ -1,126 +1,93 @@
-package com.example.casadeshowapi.entities;
+package com.example.casadeshowapi.Dto;
 
-import java.io.Serializable;
+import com.example.casadeshowapi.entities.Show;
+
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+public class EventoDto {
 
-
-import com.sun.istack.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity (name = "shows")
-public class Show implements Serializable{
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(nullable = false, length = 50)
     private String shows;
-
-
     private double valor;
-
-
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Data é uma informação obrigatória.")
     private Calendar data;
-
-    @Column(nullable = false, length = 2000)
     private String local;
-
     private int ingRestante;
-
     private int compra;
-
     private String estilo;
+    private String Casa;
 
-    @ManyToOne
-    @JoinColumn(name="casa_id")
-    @JsonIgnore
-    private Casa casa;
+    public EventoDto(Show show) {
+        super();
+        this.id = show.getId();
+        this.shows = show.getShows();
+        this.valor = show.getValor();
+        this.local = show.getLocal();
+        this.ingRestante = show.getIngRestante();
+        this.compra = show.getCompra();
+        this.estilo = show.getEstilo();
+        Casa = show.getCasa().getNome();
+    }
+
+    public static List<EventoDto> converter(List<Show> show) {
+
+        return show.stream().map(EventoDto::new).collect(Collectors.toList());
+    }
+
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getShows() {
         return shows;
     }
-
     public void setShows(String shows) {
         this.shows = shows;
     }
-
     public double getValor() {
         return valor;
     }
-
     public void setValor(double valor) {
         this.valor = valor;
     }
-
     public Calendar getData() {
         return data;
     }
-
     public void setData(Calendar data) {
         this.data = data;
     }
-
     public String getLocal() {
         return local;
     }
-
     public void setLocal(String local) {
         this.local = local;
     }
-
     public int getIngRestante() {
         return ingRestante;
     }
-
     public void setIngRestante(int ingRestante) {
         this.ingRestante = ingRestante;
     }
-
-    public Casa getCasa() {
-        return casa;
-    }
-
-    public void setCasa(Casa casa) {
-        this.casa = casa;
-    }
-
     public int getCompra() {
         return compra;
     }
-
     public void setCompra(int compra) {
         this.compra = compra;
     }
-
     public String getEstilo() {
         return estilo;
     }
-
     public void setEstilo(String estilo) {
         this.estilo = estilo;
+    }
+    public String getCasa() {
+        return Casa;
+    }
+    public void setCasa(String casa) {
+        Casa = casa;
     }
 
 
