@@ -47,7 +47,7 @@ public class CasaRest {
 
     @ApiOperation(value = "Retorna uma lista de casas de show ordenadas em crescente")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna uma lista de casas de show ordenadas em crescente"),
+            @ApiResponse(code = 200, message = "Retorna uma lista de casas de show ordenadas de forma crescente"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 404, message = "Não encontrado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
@@ -64,7 +64,7 @@ public class CasaRest {
 
     @ApiOperation(value = "Retorna uma lista de casas de show ordenadas em decrescente")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna uma lista de casas de show ordenadas em decrescente"),
+            @ApiResponse(code = 200, message = "Retorna uma lista de casas de show ordenadas de forma decrescente"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 404, message = "Não encontrado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),

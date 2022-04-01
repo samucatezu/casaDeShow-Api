@@ -49,7 +49,7 @@ public class ShowController {
     @GetMapping("/adicionar")
     public ModelAndView addShow(Show show, BindingResult result) {
 
-        ModelAndView mv = new ModelAndView("/addshow");
+        ModelAndView mv = new ModelAndView("addshow");
 
 
         if(result.hasErrors()) {
@@ -119,9 +119,15 @@ public class ShowController {
 
         Show show = repositorio.findById(id).get();
 
-        show.setIngRestante(show.getIngRestante() - compra);
-
-        repositorio.save(show);
+        if(compra > 0) {
+            if(compra < show.getIngRestante()) {
+                show.setIngRestante(show.getIngRestante() - compra);
+                repositorio.save(show);
+            }
+        }
+        else {
+            compra = 0;
+        }
 
 
         return "redirect:/";

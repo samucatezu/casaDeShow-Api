@@ -1,14 +1,27 @@
 package com.example.casadeshowapi.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import io.swagger.models.auth.In;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -22,7 +35,10 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.gft.main.rescontroller"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(apiInfo());
+                .useDefaultResponseMessages(false)
+                .globalResponseMessage(RequestMethod.GET, responseMessageForGET())
+                .securitySchemes(List.of(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
+                .securityContexts(List.of(securityContext()));
     }
 
     private ApiInfo apiInfo() {
@@ -30,7 +46,45 @@ public class SwaggerConfig {
                 .title("Casa de shows")
                 .description("Aplicação MVC convertida para API.")
                 .version("1.0.0")
-                .contact(new Contact("Samuel Almeida", "www.gooogle.com", "slba@gft.com"))
+                .contact(new Contact("Cleyton", "www.gooogle.com", "csnp@gft.com"))
                 .build();
     }
+
+    private List<ResponseMessage> responseMessageForGET()
+    {
+        return new ArrayList<ResponseMessage>() {
+            private static final long serialVersionUID = 1L;
+
+            {
+                add(new ResponseMessageBuilder()
+                        .code(500)
+                        .message("500 message")
+                        .responseModel(new ModelRef("Error"))
+                        .build());
+                add(new ResponseMessageBuilder()
+                        .code(403)
+                        .message("Forbidden!")
+                        .build());
+            }};
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.ant("/casacontroller/**"))
+                .forPaths(PathSelectors.ant("/showcontroller/**"))
+                .forPaths(PathSelectors.ant("/usuariocontroller/**"))
+                .forPaths(PathSelectors.ant("/vendacontroller/**"))
+                .build();
+    }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope
+                = new AuthorizationScope("ADMIN", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return List.of(
+                new SecurityReference("Token Access", authorizationScopes));
+    }
+
 }

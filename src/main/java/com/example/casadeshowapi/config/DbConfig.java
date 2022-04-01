@@ -1,4 +1,4 @@
-package com.example.casadeshowapi.dbconfig;
+package com.example.casadeshowapi.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

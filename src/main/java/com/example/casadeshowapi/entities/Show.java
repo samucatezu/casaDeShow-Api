@@ -2,6 +2,7 @@ package com.example.casadeshowapi.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class Show implements Serializable{
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Data é uma informação obrigatória.")
-    private Calendar data;
+    private Date data;
 
     @Column(nullable = false, length = 2000)
     private String local;
@@ -75,11 +76,11 @@ public class Show implements Serializable{
         this.valor = valor;
     }
 
-    public Calendar getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(Calendar data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
