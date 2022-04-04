@@ -73,7 +73,7 @@ public class SwaggerConfig {
                 .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.ant("/casacontroller/**"))
                 .forPaths(PathSelectors.ant("/showcontroller/**"))
-                .forPaths(PathSelectors.ant("/usuariocontroller/**"))
+                .forPaths(PathSelectors.ant("/usercontroller/**"))
                 .forPaths(PathSelectors.ant("/vendacontroller/**"))
                 .build();
     }

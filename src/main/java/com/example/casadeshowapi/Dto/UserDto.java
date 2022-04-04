@@ -18,9 +18,9 @@ public class UserDto {
         this.email = user.getEmail();
     }
 
-    public static List<UserDto> converter(List<User> usuario) {
+    public static List<UserDto> converter(List<User> user) {
 
-        return usuario.stream().map(UserDto::new).collect(Collectors.toList());
+        return user.stream().map(UserDto::new).collect(Collectors.toList());
     }
 
     public int getId() {
