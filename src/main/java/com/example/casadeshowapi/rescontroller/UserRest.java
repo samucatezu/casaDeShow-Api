@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/usuariocontroller")
+@RequestMapping("/usercontroller")
 public class UserRest {
 
     @Autowired
@@ -31,7 +31,7 @@ public class UserRest {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @GetMapping
-    public ResponseEntity<List<UserDto>> getUsuarios() {
+    public ResponseEntity<List<UserDto>> getUsers() {
         List<UserDto> dto = UserDto.converter(repositorio.findAll());
         return ResponseEntity.ok(dto);
     }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 
 @Controller
@@ -30,8 +31,16 @@ public class UserController {
 
         ModelAndView mv = new ModelAndView("shows");
 
-        service.findAll();
-        user.setRole("USUARIO");
+        System.out.println(user.getNome() + "<<<<<<<<<<<<<<<<<<<<<");
+
+        if(!user.getNome().equals("administrador")) {
+            System.out.println("Setou como usuario");
+            user.setRole("USUARIO");
+        }
+        if(user.getNome().equals("administrador")) {
+            System.out.println("Setou como gerente");
+            user.setRole("GERENTE");
+        }
 
         service.save(user);
 
