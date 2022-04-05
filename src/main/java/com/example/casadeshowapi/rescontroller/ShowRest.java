@@ -2,23 +2,17 @@ package com.example.casadeshowapi.rescontroller;
 
 import java.util.List;
 
+import com.example.casadeshowapi.Dto.CasaDto;
 import com.example.casadeshowapi.Dto.EventoDto;
+import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.entities.Show;
+import com.example.casadeshowapi.repository.CasaRepository;
 import com.example.casadeshowapi.repository.ShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 import io.swagger.annotations.ApiOperation;
@@ -27,10 +21,12 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/showrestcontroller")
+@CrossOrigin
 public class ShowRest {
 
     @Autowired
     ShowRepository service;
+    CasaRepository casa;
 
     @ApiOperation(value = "Retorna uma lista de eventos")
     @ApiResponses(value = {
@@ -68,8 +64,23 @@ public class ShowRest {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @PostMapping
-    public Show criarNovoEvento(@RequestBody Show show){
+    public Show criarNovoEvento(@RequestBody Show show, Casa casa_id){
+        System.out.println("Entrou no post meu bom");
+        show.setCasa(casa_id);
         return service.save(show);
+    }
+
+    @ApiOperation(value = "Retorna uma lista de casas de show")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna a lista de casas de show"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 404, message = "Não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/casa")
+    public ResponseEntity<List<CasaDto>> getCasas() {
+        List<CasaDto> dto = CasaDto.converter(casa.findAll());
+        return ResponseEntity.ok(dto);
     }
 
     @SuppressWarnings("rawtypes")
