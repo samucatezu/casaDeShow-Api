@@ -120,7 +120,7 @@
                         <div class="col-md-6"
                              th:classappend="${#fields.hasErrors('data')}? 'has-error'">
                             <label>Data:
-                                <p th:text="*{#dates.format(data, 'dd/MM/yyyy')}"></p>
+                                <p th:text="*{data}"></p>
                             </label>
                         </div>
                     </div>

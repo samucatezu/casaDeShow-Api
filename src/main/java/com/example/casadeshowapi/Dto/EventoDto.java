@@ -2,6 +2,7 @@ package com.example.casadeshowapi.Dto;
 
 import com.example.casadeshowapi.entities.Show;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ public class EventoDto {
     private Long id;
     private String shows;
     private double valor;
-    private Calendar data;
+    private LocalDate data;
     private String local;
     private int ingRestante;
     private int compra;
@@ -24,6 +25,7 @@ public class EventoDto {
         this.shows = show.getShows();
         this.valor = show.getValor();
         this.local = show.getLocal();
+        this.data = show.getData();
         this.ingRestante = show.getIngRestante();
         this.compra = show.getCompra();
         this.estilo = show.getEstilo();
@@ -53,10 +55,10 @@ public class EventoDto {
     public void setValor(double valor) {
         this.valor = valor;
     }
-    public Calendar getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(Calendar data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     public String getLocal() {
