@@ -24,13 +24,13 @@ public class ShowService {
     //fim metodo
 
     //Buscar por id
-    public Show acharPorId(Long id) throws RecordNotFoundException {
+    public Show acharPorId(Long id) throws Exception {
         Optional<Show> show = repository.findById(id);
 
         if (show.isPresent()) {
             return show.get();
         } else {
-            throw new RecordNotFoundException("Não existe este show");
+            throw new Exception("Não existe este show");
         }
     }
 

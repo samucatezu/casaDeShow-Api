@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
+
 @Controller
 public class ShowController {
 
@@ -45,34 +46,23 @@ public class ShowController {
         return mv;
     }
 
-
     @GetMapping("/adicionar")
     public ModelAndView addShow(Show show, BindingResult result) {
 
         ModelAndView mv = new ModelAndView("addshow");
 
-
         if(result.hasErrors()) {
             mv.addObject(result.getAllErrors());
-        }else {
         }
+
         mv.addObject("shows", show);
         mv.addObject("listar", service.findAll());
 
         return mv;
     }
 
-    @ModelAttribute(value="casinha")
-    public List<Casa> buscarCasas() {
-
-        return home.findAll();
-    }
-
-
     @PostMapping("/saveshow")
     public ModelAndView saveShow(@Valid Show shows, BindingResult result, Casa casa) {
-
-        System.out.println(shows.getData() + "<<<<<<<<<<<<");
 
         if (result.hasErrors()) {
             return addShow(shows, result);
@@ -83,9 +73,14 @@ public class ShowController {
         return findAll();
     }
 
+    @ModelAttribute(value="casinha")
+    public List<Casa> buscarCasas() {
+
+        return home.findAll();
+    }
 
     @RequestMapping(path = {"/edit", "/edit/{id}"})
-    public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    public String editarPorId(Model model, @PathVariable("id") Optional<Long> id) throws Exception {
         if (id.isPresent()) {
             Show entity = service.acharPorId(id.get());
             model.addAttribute("shows", entity);
@@ -103,7 +98,7 @@ public class ShowController {
     }
 
     @RequestMapping(path = {"/comprar", "/comprarteste/{id}"})
-    public String comprar(Model model, @PathVariable("id") Optional<Long> id) throws RecordNotFoundException {
+    public String comprar(Model model, @PathVariable("id") Optional<Long> id) throws Exception {
         if (id.isPresent()) {
             Show entity = service.acharPorId(id.get());
             entity.setIngRestante(entity.getIngRestante() - entity.getCompra());
@@ -115,12 +110,10 @@ public class ShowController {
         return "comprar";
     }
 
-
     @PostMapping("/comprar")
     public String comprar(Long id, int compra) {
 
         Show show = repositorio.findById(id).get();
-
         if(compra > 0) {
             if(compra <= show.getIngRestante()) {
                 show.setIngRestante(show.getIngRestante() - compra);
@@ -131,10 +124,7 @@ public class ShowController {
             compra = 0;
         }
 
-
         return "redirect:/";
     }
-
-
 }
 

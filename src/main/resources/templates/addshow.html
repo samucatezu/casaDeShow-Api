@@ -8,7 +8,7 @@
     <title>Casas</title>
     <link
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-            rel="stylesheet"></link>
+            rel="stylesheet"/>
     <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -32,7 +32,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="active"><a th:href="@{/adicionar/}">Adicionar Show</a></li>
+                <li class="active"><a th:href="@{/adicionar/}">Adicionar
+                    Show</a></li>
                 <li><a th:href="@{/adicionarcasa/}">Adicionar Casa</a></li>
                 <li class="active"><a href="./logout">Sair <span
                         class="sr-only">(current)</span></a></li>
@@ -51,13 +52,22 @@
               method="POST" style="margin: 10px">
             <div class="form-row">
                 <fieldset>
-                    <div class="form-group-row">
+                    <div class="form-group row">
                         <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
                             <div th:each="detailedError : ${#fields.detailedErrors()}">
                                 <span th:text="${detailedError.message}"></span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="alert alert-success alert-dismissible" role="alert"
+                         th:if="${!#strings.isEmpty(MSG_Erro)}" th:text="${MSG_Erro}">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
                     <div class="form-group-row">
                         <div>
                             <input type="hidden" class="form-control input-sm" id="id"

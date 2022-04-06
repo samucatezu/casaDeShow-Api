@@ -19,13 +19,13 @@ public class CasaService {
         return repositorio.findAll();
     }
 
-    public Casa acharPorId(Long id) throws RecordNotFoundException {
+    public Casa acharPorId(Long id) throws Exception {
         Optional<Casa> casa = repositorio.findById(id);
 
         if (casa.isPresent()) {
             return casa.get();
         } else {
-            throw new RecordNotFoundException("Não existe esta casa");
+            throw new Exception("Não existe esta casa");
         }
     }
 

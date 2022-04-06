@@ -1,9 +1,7 @@
 package com.example.casadeshowapi.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity (name = "shows")
-public class Show implements Serializable{
+@Entity(name = "shows")
+public class Show implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,28 +27,30 @@ public class Show implements Serializable{
     private Long id;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "Nome do show é obrigatório.")
     private String shows;
 
-
     private double valor;
-
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Data é uma informação obrigatória.")
-    private LocalDate data;
+    private Date data;
 
     @Column(nullable = false, length = 2000)
+    @NotBlank(message = "Local é uma informação obrigatória.")
     private String local;
 
+    @NotNull(message = "Quantidade é obrigatório.")
     private int ingRestante;
 
     private int compra;
 
+    @NotNull(message = "Estilo é obrigatório.")
     private String estilo;
 
     @ManyToOne
-    @JoinColumn(name="casa_id")
+    @JoinColumn(name = "casa_id")
     @JsonIgnore
     private Casa casa;
 
@@ -77,11 +78,11 @@ public class Show implements Serializable{
         this.valor = valor;
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -124,7 +125,5 @@ public class Show implements Serializable{
     public void setEstilo(String estilo) {
         this.estilo = estilo;
     }
-
-
 
 }
