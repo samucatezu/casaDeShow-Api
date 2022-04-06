@@ -38,8 +38,8 @@ public class UserController {
         System.out.println(user.getNome() + "<<<<<<<<<<<<<<<<<<<<<");
 
         if (!user.getNome().equals("administrador")) {
-            System.out.println("Setou como usuario");
-            user.setRole("USUARIO");
+            System.out.println("Setou como user");
+            user.setRole("USER");
         }
         if (user.getNome().equals("administrador")) {
             System.out.println("Setou como gerente");
