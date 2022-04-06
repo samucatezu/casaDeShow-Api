@@ -29,18 +29,23 @@ public class CasaDto {
     public Long getIdCasa() {
         return idCasa;
     }
+
     public void setIdCasa(Long idCasa) {
         this.idCasa = idCasa;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getEndereco() {
         return endereco;
     }
+
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
@@ -52,9 +57,6 @@ public class CasaDto {
     public void setShow(List<Show> show) {
         this.show = show;
     }
-
-
-
 
 
 }

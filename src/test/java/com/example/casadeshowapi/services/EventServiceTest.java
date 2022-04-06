@@ -1,9 +1,5 @@
 package com.example.casadeshowapi.services;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.repository.CasaRepository;
@@ -16,6 +12,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 
 @RunWith(SpringRunner.class)
@@ -78,7 +78,7 @@ public class EventServiceTest {
 
     @Test
     public void ErroBuscaShowService() throws Exception {
-        Long busca =  (long) 500;
+        Long busca = (long) 500;
         Mockito.when(service.acharPorId(busca)).thenThrow(new Exception("Não existe este show"));
     }
 

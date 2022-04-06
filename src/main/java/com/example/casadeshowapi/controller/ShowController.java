@@ -1,10 +1,5 @@
 package com.example.casadeshowapi.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.exception.RecordNotFoundException;
@@ -15,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -51,7 +45,7 @@ public class ShowController {
 
         ModelAndView mv = new ModelAndView("addshow");
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             mv.addObject(result.getAllErrors());
         }
 
@@ -68,12 +62,12 @@ public class ShowController {
             return addShow(shows, result);
         }
 
-        repositorio.save(shows);
+        service.criarAtualizarShow(shows);
 
         return findAll();
     }
 
-    @ModelAttribute(value="casinha")
+    @ModelAttribute(value = "casinha")
     public List<Casa> buscarCasas() {
 
         return home.findAll();
@@ -114,13 +108,12 @@ public class ShowController {
     public String comprar(Long id, int compra) {
 
         Show show = repositorio.findById(id).get();
-        if(compra > 0) {
-            if(compra <= show.getIngRestante()) {
+        if (compra > 0) {
+            if (compra <= show.getIngRestante()) {
                 show.setIngRestante(show.getIngRestante() - compra);
                 repositorio.save(show);
             }
-        }
-        else {
+        } else {
             compra = 0;
         }
 

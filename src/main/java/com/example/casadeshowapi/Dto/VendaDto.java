@@ -25,6 +25,7 @@ public class VendaDto {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -40,6 +41,7 @@ public class VendaDto {
     public Long getEventoId() {
         return eventoId;
     }
+
     public void setEventoId(Long eventoId) {
         this.eventoId = eventoId;
     }

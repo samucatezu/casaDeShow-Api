@@ -1,7 +1,5 @@
 package com.example.casadeshowapi.services;
 
-import java.util.List;
-
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.repository.CasaRepository;
 import org.junit.Assert;
@@ -12,6 +10,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -68,9 +68,9 @@ public class CasaServiceTest {
     @Test
     public void ListarPorIdViaService() {
         try {
-            Long busca =  (long) 17;
+            Long busca = (long) 17;
             Mockito.when(service.acharPorId(busca));
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
         }
@@ -78,7 +78,7 @@ public class CasaServiceTest {
 
     @Test
     public void ErroBuscaCasaService() throws Exception {
-        Long busca =  (long) 500;
+        Long busca = (long) 500;
         Mockito.when(service.acharPorId(busca)).thenThrow(new Exception("Não existe esta casa"));
     }
 

@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport"/>
     <title>Cadastro de Posts</title>
     <link
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -16,15 +16,15 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                    aria-controls="navbar">
+            <button aria-controls="navbar" aria-expanded="false"
+                    class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+                    type="button">
                 <span class="sr-only">Toggle navigation</span> <span
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li><a th:href="@{/}">Inicio</a></li>
             </ul>
@@ -44,8 +44,8 @@
         <strong>Cadastro de Casas</strong>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" th:object="${casa}"
-              th:action="@{/salvacasa}" method="POST" style="margin: 10px">
+        <form class="form-horizontal" method="POST"
+              style="margin: 10px" th:action="@{/salvacasa}" th:object="${casa}">
             <div class="form-row">
                 <fieldset>
                     <div class="form-group row">
@@ -58,8 +58,8 @@
 
                     <div class="alert alert-success alert-dismissible" role="alert"
                          th:if="${!#strings.isEmpty(MSG_Erro)}" th:text="${MSG_Erro}">
-                        <button type="button" class="close" data-dismiss="alert"
-                                aria-label="Close">
+                        <button aria-label="Close" class="close" data-dismiss="alert"
+                                type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -67,34 +67,34 @@
 
                     <div class="form-group row">
                         <div>
-                            <input type="hidden" class="form-control input-sm" id="idCasa"
-                                   th:field="*{idCasa}" readOnly="readonly" />
+                            <input class="form-control input-sm" id="idCasa" readOnly="readonly"
+                                   th:field="*{idCasa}" type="hidden"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6"
                              th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
-                            <label>Nome da casa</label> <input type="text"
-                                                               class="form-control input-sm" th:field="*{nome}"
-                                                               autofocus="autofocus" placeholder="Informe a casa"
-                                                               maxlength="50" />
+                            <label>Nome da casa</label> <input autofocus="autofocus"
+                                                               class="form-control input-sm" maxlength="50"
+                                                               placeholder="Informe a casa" th:field="*{nome}"
+                                                               type="text"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6"
                              th:classappend="${#fields.hasErrors('endereco')}? 'has-error'">
-                            <label>Endereço</label> <input type="text"
-                                                           class="form-control input-sm" th:field="*{endereco}"
-                                                           autofocus="autofocus" placeholder="Informe o endereço"
-                                                           maxlength="50" />
+                            <label>Endereço</label> <input autofocus="autofocus"
+                                                           class="form-control input-sm" maxlength="50"
+                                                           placeholder="Informe o endereço" th:field="*{endereco}"
+                                                           type="text"/>
                         </div>
                     </div>
 
                 </fieldset>
             </div>
             <div class="form-group row">
-                <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-                <a th:href="@{/}" class="btn btn-sm btn-default">Cancelar</a>
+                <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                <a class="btn btn-sm btn-default" th:href="@{/}">Cancelar</a>
             </div>
         </form>
 

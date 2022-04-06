@@ -1,17 +1,16 @@
 package com.example.casadeshowapi.rescontroller;
 
-import java.util.List;
-
 import com.example.casadeshowapi.Dto.VendaDto;
 import com.example.casadeshowapi.repository.VendaRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import java.util.List;
 
 @RestController
 @RequestMapping("/vendacontroller")
@@ -43,8 +42,8 @@ public class VendaRest {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @GetMapping(path = {"/{id}"})
-    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Id não encontrado")
-    public ResponseEntity buscarVendaPorID(@PathVariable Long id){
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Id não encontrado")
+    public ResponseEntity buscarVendaPorID(@PathVariable Long id) {
         return repositorio.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());

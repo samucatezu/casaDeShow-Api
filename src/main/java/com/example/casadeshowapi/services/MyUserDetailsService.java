@@ -3,7 +3,6 @@ package com.example.casadeshowapi.services;
 import com.example.casadeshowapi.entities.User;
 import com.example.casadeshowapi.repository.UserRepository;
 import com.example.casadeshowapi.security.UserPrincipal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String nome) throws UsernameNotFoundException {
 
         User user = repo.findByNome(nome);
-        if(user==null) {
+        if (user == null) {
             throw new UsernameNotFoundException("Usuário inexistente");
         }
 

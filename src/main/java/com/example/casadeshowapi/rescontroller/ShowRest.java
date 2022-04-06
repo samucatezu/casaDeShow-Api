@@ -1,23 +1,21 @@
 package com.example.casadeshowapi.rescontroller;
 
-import java.util.List;
-
 import com.example.casadeshowapi.Dto.CasaDto;
 import com.example.casadeshowapi.Dto.EventoDto;
 import com.example.casadeshowapi.entities.Casa;
 import com.example.casadeshowapi.entities.Show;
 import com.example.casadeshowapi.repository.CasaRepository;
 import com.example.casadeshowapi.repository.ShowRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import java.util.List;
 
 @RestController
 @RequestMapping("/showrestcontroller")
@@ -50,7 +48,7 @@ public class ShowRest {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @GetMapping(path = {"/{id}"})
-    public ResponseEntity buscarEventoPorID(@PathVariable Long id){
+    public ResponseEntity buscarEventoPorID(@PathVariable Long id) {
         return service.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
@@ -64,7 +62,7 @@ public class ShowRest {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @PostMapping
-    public Show criarNovoEvento(@RequestBody Show show, Casa casa_id){
+    public Show criarNovoEvento(@RequestBody Show show, Casa casa_id) {
         System.out.println("Entrou no post meu bom");
         show.setCasa(casa_id);
         return service.save(show);
@@ -91,7 +89,7 @@ public class ShowRest {
             @ApiResponse(code = 404, message = "Não encontrado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
-    @PutMapping(value="/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity atualizarEvento(@PathVariable("id") Long id,
                                           @RequestBody Show show) {
         return service.findById(id)
@@ -114,8 +112,8 @@ public class ShowRest {
             @ApiResponse(code = 404, message = "Não encontrado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
-    @DeleteMapping(path ={"/{id}"})
-    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Id não encontrado")
+    @DeleteMapping(path = {"/{id}"})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Id não encontrado")
     public ResponseEntity<?> apagarEvento(@PathVariable Long id) {
         return service.findById(id)
                 .map(record -> {

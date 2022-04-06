@@ -2,7 +2,6 @@ package com.example.casadeshowapi.controller;
 
 import com.example.casadeshowapi.entities.User;
 import com.example.casadeshowapi.repository.UserRepository;
-import com.example.casadeshowapi.services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 
 @Controller
@@ -26,6 +24,12 @@ public class UserController {
         return mv;
     }
 
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView mv = new ModelAndView("login");
+        return mv;
+    }
+
     @PostMapping("/cadastro")
     public ModelAndView novoUser(@Valid User user) {
 
@@ -33,11 +37,11 @@ public class UserController {
 
         System.out.println(user.getNome() + "<<<<<<<<<<<<<<<<<<<<<");
 
-        if(!user.getNome().equals("administrador")) {
+        if (!user.getNome().equals("administrador")) {
             System.out.println("Setou como usuario");
             user.setRole("USUARIO");
         }
-        if(user.getNome().equals("administrador")) {
+        if (user.getNome().equals("administrador")) {
             System.out.println("Setou como gerente");
             user.setRole("GERENTE");
         }
