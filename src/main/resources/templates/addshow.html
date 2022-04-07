@@ -35,7 +35,7 @@
                 <li class="active"><a th:href="@{/adicionar/}">Adicionar
                     Show</a></li>
                 <li><a th:href="@{/adicionarcasa/}">Adicionar Casa</a></li>
-                <li class="active"><a href="./logout">Sair <span
+                <li class="active"><a href="./login?logout">Sair <span
                         class="sr-only">(current)</span></a></li>
             </ul>
         </div>
@@ -79,7 +79,8 @@
                              th:classappend="${#fields.hasErrors('shows')}? 'has-error'">
                             <label>Show</label> <input autofocus="autofocus"
                                                        class="form-control input-sm" maxlength="50"
-                                                       placeholder="Informe o show" th:field="*{shows}"
+                                                       placeholder="Informe o show" required
+                                                       th:field="*{shows}"
                                                        type="text"/>
                         </div>
                     </div>

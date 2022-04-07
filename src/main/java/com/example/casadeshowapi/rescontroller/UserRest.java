@@ -22,7 +22,7 @@ public class UserRest {
     @Autowired
     UserRepository repositorio;
 
-    @ApiOperation(value = "Retorna uma lista de users")
+    @ApiOperation(value = "Retorna uma lista de usuarios")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna a lista de eventos"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),

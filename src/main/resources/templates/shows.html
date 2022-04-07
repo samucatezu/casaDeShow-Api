@@ -36,12 +36,14 @@
             </div>
             <div class="logo">Eventix</div>
             <div class="menu">
-                <ul>
+                <ul style="color: white;">
                     <li class="active"><a th:href="@{/}">Inicio</a></li>
-                    <li><a sec:authorize="hasRole('GERENTE')"
-                           th:href="@{/adicionar/}">Adicionar Show</a></li>
-                    <li><a sec:authorize="hasRole('GERENTE')"
-                           th:href="@{/adicionarcasa/}">Adicionar Casa</a></li>
+                    <li><a
+                            th:href="@{/adicionar/}">Adicionar Show</a></li>
+                    <li><a
+                            th:href="@{/adicionarcasa/}">Adicionar Casa</a></li>
+                    <li><a href="/login">Login</a></li>
+
                     <li><a href="/login?logout">Sair</a></li>
                 </ul>
             </div>
@@ -60,8 +62,8 @@
                             <img alt="Generic placeholder image" class="img-circle"
                                  height="140" src="bg.jpg" th:if="${mostra.estilo == 'rock'}"
                                  width="140"> <img alt="Generic placeholder image"
-                                                    class="img-circle" height="140"
-                                                    src="pagode.jpg" th:if="${mostra.estilo == 'pagode'}" width="140">
+                                                   class="img-circle" height="140"
+                                                   src="pagode.jpg" th:if="${mostra.estilo == 'pagode'}" width="140">
                             <img alt="Generic placeholder image" class="img-circle"
                                  height="140" src="axé.png" th:if="${mostra.estilo == 'axé'}"
                                  width="140"> <img

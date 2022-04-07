@@ -17,6 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -31,8 +32,8 @@ public class SwaggerConfig {
                 .build()
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, responseMessageForGET())
-                .securitySchemes(List.of(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
-                .securityContexts(List.of(securityContext()));
+                .securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
+                .securityContexts(Arrays.asList(securityContext()));
     }
 
     private ApiInfo apiInfo() {
@@ -67,7 +68,7 @@ public class SwaggerConfig {
                 .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.ant("/casacontroller/**"))
                 .forPaths(PathSelectors.ant("/showcontroller/**"))
-                .forPaths(PathSelectors.ant("/usercontroller/**"))
+                .forPaths(PathSelectors.ant("/usuariocontroller/**"))
                 .forPaths(PathSelectors.ant("/vendacontroller/**"))
                 .build();
     }
@@ -77,7 +78,7 @@ public class SwaggerConfig {
                 = new AuthorizationScope("ADMIN", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return List.of(
+        return Arrays.asList(
                 new SecurityReference("Token Access", authorizationScopes));
     }
 
